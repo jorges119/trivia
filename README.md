@@ -6,8 +6,10 @@ This project showcases the use of Spring Framework and React to build a simple T
 
 The aplication exposes two endpoints
 
-/questions: obtain a set of questions without the answer in the payload
-/answers: check a set of answers and get the status
+* /questions: obtain a set of questions without the answer in the payload
+* /answers: check a set of answers and get the status
+
+Refer to the Swagger documentation using the endpoint: /swagger-ui/index.html
 
 
 ## Front-end
