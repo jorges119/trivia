@@ -83,7 +83,7 @@ public class TriviaController {
             @ApiResponse(responseCode = "404", description = "A question ID was not found",
                     content = @Content(schema = @Schema()))
     })
-  @PostMapping("/answers") 
+  @PostMapping("/checkanswers") 
   public ResponseEntity<TriviaAnswerResponse[]> checkAnswer(@RequestBody TriviaAnswerRequest[] answers) throws InvalidQuestionException {
     return new ResponseEntity<>(this.manager.checkQuestion(answers), HttpStatus.CREATED);
   }

@@ -24,7 +24,7 @@ const useQuestions = (amount: number) => {
 const useAnswers = (answers: {[key in string]: string}) => {
   return useMutation({
     mutationFn: async (): Promise<Array<Answer>> => {
-      const response = await fetch(`${beURL}/answers`, {
+      const response = await fetch(`${beURL}/checkanswers`, {
         method: 'POST', 
         headers: {"content-type": "application/json; charset=utf-8"},
         body: JSON.stringify(

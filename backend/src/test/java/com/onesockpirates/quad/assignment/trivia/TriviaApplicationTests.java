@@ -85,7 +85,7 @@ class TriviaApplicationTests {
 		when(manager.checkQuestion(any())).thenReturn(new TriviaAnswerResponse[]{
 			new TriviaAnswerResponse(0, 0, true)
 		});
-		final String baseUrl = "http://localhost:"+randomServerPort+"/answers";
+		final String baseUrl = "http://localhost:"+randomServerPort+"/checkanswers";
         URI uri = new URI(baseUrl);
         TriviaAnswerRequest[] requestData = new TriviaAnswerRequest[]{new TriviaAnswerRequest("=", "a")};
         HttpEntity<TriviaAnswerRequest[]> request = new HttpEntity<>(requestData);
@@ -96,7 +96,7 @@ class TriviaApplicationTests {
 	@Test
 	void POST_Non_Existing_Answers_Returns_NOTFOUND() throws URISyntaxException, InvalidQuestionException{
 		when(manager.checkQuestion(any())).thenThrow(new InvalidQuestionException());
-		final String baseUrl = "http://localhost:"+randomServerPort+"/answers";
+		final String baseUrl = "http://localhost:"+randomServerPort+"/checkanswers";
         URI uri = new URI(baseUrl);
         TriviaAnswerRequest[] requestData = new TriviaAnswerRequest[]{new TriviaAnswerRequest("=", "a")};
         HttpEntity<TriviaAnswerRequest[]> request = new HttpEntity<>(requestData);
