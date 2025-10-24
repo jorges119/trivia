@@ -10,7 +10,7 @@ WORKDIR /app
 COPY backend/pom.xml .
 COPY backend/src ./src
 COPY --from=npm-build /app/dist ./src/main/resources/public
-RUN mvn clean package -DskipTests
+RUN mvn clean package 
 
 FROM amazoncorretto:21-alpine3.21
 WORKDIR /app
