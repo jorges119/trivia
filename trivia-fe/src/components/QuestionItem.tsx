@@ -18,6 +18,7 @@ const QuestionItem = ({question, onAnswer, answer, results, visible,done} : Prop
 		<Box sx={{ p: 2 }}>
 			<p>{he.decode(question.question)}</p>
 			<ToggleButtonGroup
+			sx={{backgroundColor:"white"}}
 				orientation="vertical"
 				value={answer}
 				disabled={done}
@@ -31,9 +32,11 @@ const QuestionItem = ({question, onAnswer, answer, results, visible,done} : Prop
 							{he.decode(o)}
 					</ToggleButton>)
 				}
-				{done && !results && <>You skipped this question</>}
-				{done && results && <>{results.correct} out of {results.asked} contestants got this question right</>}
 			</ToggleButtonGroup>
+			{done && results && results.success && <p style={{color:"green"}}>Well done!</p>}
+			{done && results && !results.success && <p style={{color:"red"}}>Next time you'll get it right!</p>}
+			{done && !results && <p style={{color:"grey"}}>You skipped this question</p>}
+			{done && results && <p style={{color:"black"}}>{results.correct} out of {results.asked} contestants got this question right</p>}
 		</Box>
 }
 	</>)

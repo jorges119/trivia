@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   QueryClient,
   QueryClientProvider,
@@ -13,9 +13,15 @@ function App() {
   const [amount, setAmount] = React.useState<number>(10)
   const [start, setStart] = React.useState(false)
 
+  useEffect(()=> {
+    if (!start){
+      queryClient.clear()
+    }
+  }, [start])
+
   return (
     <>
-      <h1>Amazing Trivia </h1>
+      <h1 style={{color: 'purple'}}>Amazing Trivia </h1>
       {!start && 
       <>
         <p>Select number of questions</p>

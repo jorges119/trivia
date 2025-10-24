@@ -45,7 +45,7 @@ public class TriviaController {
     return "Welcome to the trivia service";
   }
 
-  @CrossOrigin(origins = "http://localhost:5173")
+  @CrossOrigin(origins = {"http://localhost:5173","https://trivia.onesockpirates.com"})
   @Operation(summary = "Get Questions", description = "Request an amount of trivia questions")
   @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Service could obtain questions",
@@ -75,7 +75,7 @@ public class TriviaController {
     return new ResponseEntity<>(this.manager.getQuestions(amount), HttpStatus.OK);
   }
 
-  @CrossOrigin(origins = "http://localhost:5173")
+  @CrossOrigin(origins = {"http://localhost:5173","https://trivia.onesockpirates.com"})
   @Operation(summary = "POST answers", description = "Request answer checking")
   @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Answers checked succesfully",

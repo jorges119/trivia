@@ -24,7 +24,7 @@ const Questions = ({amount, onDone}: Props) => {
 	return <>
 			{finished && <>
 				<h2> You got {checkedAnswers?.filter(a => a.success).length} correct answers!  </h2>
-				<Button onClick={() => onDone()}>Start Again</Button>
+				<Button variant='outlined' onClick={() => onDone()}>Start Again</Button>
 				</>}
 			{(isLoading)? 
 			<h1>Loading</h1> : 
