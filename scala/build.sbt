@@ -47,7 +47,6 @@ lazy val uiTrivia = project
      */
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.ESModule)
-        .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("users")))
     },
 
     /* Depend on the scalajs-dom library.
@@ -56,13 +55,18 @@ lazy val uiTrivia = project
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
     libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0"
   )
-  .dependsOn(common)
+  .dependsOn(commonCross)
 
-lazy val common = project
+lazy val commonCross = project
   .in(file("common"))
+  .enablePlugins(ScalaJSPlugin)
   .settings(
-    libraryDependencies += "dev.zio" %% "zio-config-typesafe" % "4.0.2", // HOCON
-    libraryDependencies ++= commonDeps
+    libraryDependencies += "dev.zio" %%% "zio" % zioVersion,
+    libraryDependencies += "dev.zio" %%% "zio-json" % zioJsonVersion,
+    libraryDependencies += "dev.zio" %%% "zio-schema" % "1.7.5",
+    libraryDependencies += "dev.zio" %%% "zio-schema-derivation" % "1.7.5",
+    libraryDependencies += "dev.zio" %%% "zio-schema-json" % "1.7.5",
+    libraryDependencies += "dev.zio" %%% "zio-http" % zioHttpVersion
   )
   .disablePlugins(
     JavaAppPackaging,
@@ -82,7 +86,7 @@ lazy val root = project
     libraryDependencies ++= commonDeps,
     libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test
   )
-  .dependsOn(common)
+  .dependsOn(commonCross)
   .enablePlugins(
     JavaAppPackaging,
     DockerPlugin

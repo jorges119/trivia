@@ -32,8 +32,21 @@ import com.onesockpirates.trivia.repositories.PersistentQuestionRepository
 import com.onesockpirates.trivia.endpoints.*
 import com.onesockpirates.trivia.configuration.TriviaConfiguration
 import com.onesockpirates.trivia.services.PullerServiceLive
+import zio.http.Middleware.CorsConfig
+import zio.http.Header.Origin
+import zio.http.Header.AccessControlAllowOrigin
 
 object RESTServer extends ZIOAppDefault {
+
+  val config: CorsConfig =
+    CorsConfig(
+      allowedOrigin = {
+        case origin
+            if origin == Origin.parse("http://localhost:5173").toOption.get =>
+          Some(AccessControlAllowOrigin.Specific(origin))
+        case _ => None
+      }
+    )
 
   val openAPI =
     OpenAPIGen.fromEndpoints(
@@ -50,7 +63,7 @@ object RESTServer extends ZIOAppDefault {
     (((HealthcheckController.routes ++ TriviaController.routes) ++ SwaggerUI
       .routes("docs" / "openapi", openAPI)))
 
-  val debug_routes = routes @@ Middleware.debug
+  val debug_routes = routes @@ Middleware.cors(config) @@ Middleware.debug
 
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
     Runtime.setConfigProvider(ConfigProvider.fromResourcePath())

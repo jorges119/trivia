@@ -97,3 +97,5 @@ I was informed that it would take a while for this repo to be reviewed so I deci
 Run the project with sbt run, the server is configured to run at port 8081. 
 
 Review the Swagger documentation on localhost:{port}/docs/openapi
+
+Check the full scala project README [here](scala/README.md)

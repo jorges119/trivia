@@ -31,6 +31,8 @@ case class QuestionPrompt(
 
 object QuestionPrompt {
   implicit val schema: Schema[QuestionPrompt] = DeriveSchema.gen[QuestionPrompt]
+  val listSchema: Schema[List[QuestionPrompt]] =
+    DeriveSchema.gen[List[QuestionPrompt]]
 }
 
 case class Question(

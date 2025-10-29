@@ -21,7 +21,6 @@ import com.onesockpirates.common.models.QuestionPrompt
 import com.onesockpirates.common.models.Answer
 
 object TriviaController:
-
   val routes: Routes[Question.Repository & PullerService, Response] =
     Routes(
       TriviaEndpoints.questions.implement((amount: Int) =>
