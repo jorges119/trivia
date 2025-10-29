@@ -89,3 +89,11 @@ aws cloudformation create-stack \
   - API Gateway + Lambda + DynamoDB: The current spring application could be packaged as a lambda function. Issues exists with the overhead of initializing de java environment but it ultimately depends on usage expectations and whether the function remains warmed up.
 	- API Gateway: abusing the system it woud be possible to setup a proxy endpoint to the open trivia API that through Velocity templates anonymizes the answers. Later the check can be done against the cloudwatch logs (including the original reply from Open Trivia) with a lambda filtering based on the API gateway request identifier. Alternative federation could be used through Cognito to allow the FE directly to parse the logs.
 	- AppSync: no code solution with graphql to manage storage and retrieval of questions/answers, api gateway could still be used to access the questions from Open Trivia.
+ 
+## Scala version
+
+I was informed that it would take a while for this repo to be reviewed so I decided to play around and add a 2nd version of the assingment using Scala 3 and ZIO. The front-end will be built in Scalajs.
+
+Run the project with sbt run, the server is configured to run at port 8081. 
+
+Review the Swagger documentation on localhost:{port}/docs/openapi
