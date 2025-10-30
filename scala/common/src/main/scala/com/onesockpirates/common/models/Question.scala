@@ -41,7 +41,7 @@ case class Question(
     @fieldDefaultValue("")
     question: String,
     @transientField
-    @fieldDefaultValue("")
+    @fieldDefaultValue(List())
     answers: List[String],
     @transientField
     @fieldDefaultValue("")
@@ -53,6 +53,7 @@ case class Question(
 
 object Question {
   implicit val schema: Schema[Question] = DeriveSchema.gen[Question]
+  val listSchema: Schema[List[Question]] = DeriveSchema.gen[List[Question]]
 
   def fromOTDB(question: OTDBQuestion) =
     Question(
