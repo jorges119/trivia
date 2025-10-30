@@ -13,9 +13,9 @@ COPY . /app/
 # RUN sbt uiTrivia/fastLinkJS 
 RUN cd /app/apps/trivia-fe && npm install && npm run build
 RUN mkdir -p /app/src/main/resources/public && cp -r /app/apps/trivia-fe/dist/* /app/src/main/resources/public/
-RUN cd /app && sbt compile
+RUN cd /app && sbt assembly 
 
 FROM amazoncorretto:21-alpine3.21
 WORKDIR /app
-COPY --from=build /app/target/scala-3.3.6/scala-trivia_3-0.1.0.jar .
-ENTRYPOINT ["java","-jar","scala-trivia_3-0.1.0.jar"]
+COPY --from=build /app/target/scala-3.3.6/trivia-scala.jar .
+ENTRYPOINT ["java","-jar","trivia-scala.jar"]
