@@ -22,7 +22,19 @@ There are 3 projects in this solution:
 
 ## Build and deploy (WIP)
 
-1. Build scalajs app (main.js): From the scala directory run ```sbt uiTrivia/fastLinkJS```
-2. Build Vite app: From the apps/trivia-fe run ```npm run dev```
-3. Copy the dist folder contents into the parent folder's src/main/resources/public
-4. Build the backend with ```sbt compile```
+Although the sbt-native-packager plugin is imported for automatic docker image packaging of the app, a customized Docker file is used to build and package both fe and be together similar to the java solution.
+
+```bash
+docker build -t {registry}/trivia:scala .      
+```
+
+Run the generated image with 
+
+```bash
+docker run -p 8081:8081 {registry}/trivia:scala
+```
+
+- The application should be available at http://localhost:8081/index.html
+- Swagger documentation available at http://localhost:8081/docs/openapi
+
+The infrastructure is exactly the same as the one used in the java solution.
