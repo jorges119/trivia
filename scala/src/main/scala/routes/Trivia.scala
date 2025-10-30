@@ -1,4 +1,4 @@
-package com.onesockpirates.trivia.endpoints
+package com.onesockpirates.trivia.routes
 
 import zio.http.{
   handler,
@@ -19,6 +19,7 @@ import com.onesockpirates.common.models.OTDBQuestion
 import com.onesockpirates.common.Extensions.StringExtensions.RichString
 import com.onesockpirates.common.models.QuestionPrompt
 import com.onesockpirates.common.models.Answer
+import com.onesockpirates.trivia.endpoints.TriviaEndpoints
 
 object TriviaController:
   val routes: Routes[Question.Repository & PullerService, Response] =

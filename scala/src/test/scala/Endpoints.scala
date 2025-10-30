@@ -1,8 +1,8 @@
 import com.onesockpirates.trivia.RESTServer
 import com.onesockpirates.common.models.Question
 import Question._
-import com.onesockpirates.trivia.endpoints.HealthcheckController
-import com.onesockpirates.trivia.endpoints.TriviaController
+import com.onesockpirates.trivia.routes.HealthcheckController
+import com.onesockpirates.trivia.routes.TriviaController
 
 import zio._
 import zio.http._

@@ -1,4 +1,4 @@
-package com.onesockpirates.trivia.frontend
+package com.onesockpirates.frontend
 
 import com.raquo.laminar.api.L.{given, *}
 import org.scalajs.dom

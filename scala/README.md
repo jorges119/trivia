@@ -18,3 +18,11 @@ There are 3 projects in this solution:
 1. From the /scala folder start the backend ```sbt run```
 2. From the /scala folder start the frontend transpilation(live) ```~uiTrivia/fastLinkJS```
 3. From the /scala/apps/trivia-fe start the vite application ```npm run dev```
+
+
+## Build and deploy (WIP)
+
+1. Build scalajs app (main.js): From the scala directory run ```sbt uiTrivia/fastLinkJS```
+2. Build Vite app: From the apps/trivia-fe run ```npm run dev```
+3. Copy the dist folder contents into the parent folder's src/main/resources/public
+4. Build the backend with ```sbt compile```

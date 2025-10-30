@@ -9,7 +9,7 @@ val packageVersion = "0.2.0"
 val repository =
   "jorges119"
 
-val baseImage = "openjdk:24-jdk"
+val baseImage = "amazoncorretto:21-alpine3.21"
 
 ThisBuild / version := "0.1.0"
 ThisBuild / scalaVersion := scala3Version
@@ -78,7 +78,7 @@ lazy val root = project
     name := "scala-trivia",
     Docker / packageName := repository + "/trivia",
     dockerUpdateLatest := true,
-    dockerExposedPorts ++= Seq(8080),
+    dockerExposedPorts ++= Seq(8081),
     dockerBaseImage := baseImage,
     dockerAliases ++= Seq(dockerAlias.value.withTag(Option("scala-latest"))),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
@@ -90,6 +90,3 @@ lazy val root = project
     JavaAppPackaging,
     DockerPlugin
   )
-// .aggregate(
-//   uiTrivia
-// )

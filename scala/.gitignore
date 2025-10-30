@@ -31,4 +31,6 @@ metals.sbt
 .idea_modules
 /.worksheet/
 
+src/main/resources/public/*
+
 
