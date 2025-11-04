@@ -30,10 +30,27 @@ object DummyQuestionRepository extends Question.Repository {
 
 }
 
-object TestServerExampleSpec extends ZIOSpecDefault {
+object DummyPullerService
+    extends com.onesockpirates.trivia.services.PullerService {
+  import com.onesockpirates.common.models.OTDBQuestion
 
-  def spec = suite("test http app") {
-    test("test hello and fallback routes") {
+  override def getquestions(amount: Int): Task[List[OTDBQuestion]] =
+    ZIO.succeed(
+      List(OTDBQuestion("a", "b", "c", "question1", "bla", List("blo", "bli")))
+    )
+
+  def layer: ZLayer[
+    Any,
+    Throwable,
+    com.onesockpirates.trivia.services.PullerService
+  ] =
+    ZLayer.succeed(DummyPullerService)
+}
+
+object RESTServiceSpec extends ZIOSpecDefault {
+
+  def spec = suite("RESTServiceSpec") {
+    test("should serve correct routes") {
       for {
         client <- ZIO.service[Client]
         port <- ZIO.serviceWithZIO[Server](_.port)
@@ -44,33 +61,26 @@ object TestServerExampleSpec extends ZIOSpecDefault {
         _ <- TestServer.addRoutes(
           HealthcheckController.routes ++ TriviaController.routes
         )
-        helloResponse <- client(Request.get(testRequest.url / "hello"))
-        helloBody <- helloResponse.body.asString
+        getResponse <- client(
+          Request.get(testRequest.url / "questions?amount=10")
+        )
+        getBody <- getResponse.body.asString
         postResponse <- client(
           Request.post(
             testRequest.url / "checkanswers",
-            Body.fromString((List(Answer("hash", "guess"))).toJson)
+            Body.fromString("""[{"hash": "hash", "guess": "guess"}]""")
           )
         )
-        getResponse <- client(
-          Request.get(testRequest.url / "persons" / "someId")
-        )
         postBody <- postResponse.body.asString
-        getBody <- getResponse.body.asString
       } yield assertTrue(
-        helloResponse.status.code == 200,
-        helloBody.contains("Hello"),
-        postResponse.status.code == 201,
-        postBody.contains("AddedId"),
         getResponse.status.code == 200,
-        getBody.fromJson[Question] match
-          case Left(value) => false
-          case Right(value) =>
-            value match
-              case Question(id, name, age) => true
+        getBody.contains("question1"),
+        postResponse.status.code == 201,
+        postBody.contains("testId")
       )
     }.provideSome[Client with Driver](
       DummyQuestionRepository.layer,
+      DummyPullerService.layer,
       TestServer.layer,
       Scope.default
     )

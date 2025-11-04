@@ -40,5 +40,5 @@ object TriviaEndpoints:
       POST / "checkanswers" ?? Doc.p("Route for checking questions' answers")
     )
       .in[List[Answer]]
-      .out[List[Question]]
+      .out[List[Question]](Status.Created)
       .outError[String](Status.NotFound)
